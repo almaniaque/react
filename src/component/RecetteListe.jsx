@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import Add from './Add';
 
 
@@ -13,9 +12,8 @@ function RecetteListe() {
     const [recipes, setRecettes] = useState([])
 
     const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
 
     useEffect(() => {
         axios.get('https://dummyjson.com/recipes')
@@ -27,7 +25,8 @@ function RecetteListe() {
     return (
         <>
             <Container>
-                <Button variant="secondary" onClick={handleShow}>Ajouter une recette</Button>
+                <Button variant="secondary" onClick={handleShow}>Ajouter une recette </Button>
+
                 <Row>
                     {recipes.map(recipe => (
                         <Col key={recipes.id} md={4}>
@@ -37,26 +36,8 @@ function RecetteListe() {
                 </Row>
 
             </Container>
-
-            <Modal show={show} centered onHide={handleClose} >
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body><Add /></Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-
+            <Add show={show} onClose={handleClose} />
         </>
-
-
     )
 }
 
