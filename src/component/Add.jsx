@@ -8,18 +8,21 @@ function Add({ show, onClose }) {
     const [rating, setRating] = useState(0);
 
     return (
-        <Modal show={show} centered onHide={onClose}>
+        <Modal show={show} centered onHide={onClose} data-bs-theme="dark">
             <Modal.Header closeButton>
                 <Modal.Title>Ajouter une recette</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body>
+            <Modal.Body >
+                <Form.Group controlId="formFileImage" className="mb-3">
+                    <Form.Label>Image de la recette</Form.Label>
+                    <Form.Control type="file" accept='.png, .jpg, .jpeg' multiple />
+                </Form.Group>
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Nom de la recette</Form.Label>
                         <Form.Control type="text" placeholder="Nom de la recette" />
                     </Form.Group>
-
                     <Form.Group className="mb-3">
                         <Form.Label>Difficulty</Form.Label>
                         <Form.Select>
@@ -29,7 +32,6 @@ function Add({ show, onClose }) {
                             <option value="Hard">Hard</option>
                         </Form.Select>
                     </Form.Group>
-
                     <Form.Group className="mb-3">
                         <Form.Label>Note</Form.Label>
                         <StarRating rating={rating} setRating={setRating} />
