@@ -10,6 +10,7 @@ function EditStarRating({ rating, setRating, max = 5 }) {
                     <span
                         key={starValue}
                         onClick={() => setRating(starValue)}
+
                         style={{
                             cursor: "pointer",
                             fontSize: "30px",
@@ -25,7 +26,9 @@ function EditStarRating({ rating, setRating, max = 5 }) {
                 {rating} / {max}
             </span>
         </div>
+
     );
+
 }
 
 export default EditStarRating;
