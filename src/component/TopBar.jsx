@@ -13,7 +13,7 @@ function TopBar() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/">Acceuil</Nav.Link>
-                        <Nav.Link href="/Product">Recette</Nav.Link>
+                        <Nav.Link href="/Recette">Recette</Nav.Link>
                         <Nav.Link href="/Contact">Contact</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
