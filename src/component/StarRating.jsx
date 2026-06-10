@@ -3,7 +3,7 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
 function StarRating({ rating = 0, max = 5 }) {
     return (
-        <div>
+        <div >
             {[...Array(max)].map((_, index) => {
                 const starValue = index + 1;
 

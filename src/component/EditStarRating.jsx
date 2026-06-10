@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function EditStarRating({ rating, setRating, max = 5 }) {
     return (
-        <div>
+        <div >
             {[...Array(max)].map((_, index) => {
                 const starValue = index + 1;
 
@@ -22,7 +22,9 @@ function EditStarRating({ rating, setRating, max = 5 }) {
                 );
             })}
 
-            <span style={{ marginLeft: "10px" }}>
+            <span
+
+                style={{ marginLeft: "10px" }}>
                 {rating} / {max}
             </span>
         </div>

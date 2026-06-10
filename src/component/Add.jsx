@@ -1,15 +1,13 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import { Alert, Form, Button, FormControl, FormGroup, Modal } from 'react-bootstrap';
 import EditStarRating from './EditStarRating';
 import { useEffect, useState, useRef } from "react";
-import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
-import { FormControl, FormGroup } from 'react-bootstrap';
+
 
 function Add({ show, onClose }) {
 
-    //const ratinFeedBack = useRef(null)
-
+    /*const ratinFeedBack = useRef(null)*/
+    const zoneRating = useRef(null)
     const [rating, setRating] = useState(0);
 
     const [values, setValues] = useState({
@@ -28,12 +26,10 @@ function Add({ show, onClose }) {
     }
 
     // rating
-    const handleRating = (rate) => {
+    /*const handleRating = (rate) => {
         console.log(rate)
         setValues((prev) => ({ ...prev, ["rating"]: rate }));
-    };
-
-
+    };*/
 
     //validation basique
     const validate = () => {
@@ -49,7 +45,11 @@ function Add({ show, onClose }) {
 
         if (values.rating == 0) {
             newErrors.rating = "Select rating";
-            //ratinFeedBack.current.style.display='block'
+            /*ratinFeedBack.current.style.display='block'*/
+            zoneRating.current.classList.add('form-control', 'is-invalid')
+        }
+        else {
+            zoneRating.current.classList.remove('form-control', 'is-invalid')
         }
         return newErrors;
     }
@@ -57,7 +57,7 @@ function Add({ show, onClose }) {
     //passage de la verif au click
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(validate())
+        console.log(values)
         const validation = validate();
 
         if (Object.keys(validation).length > 0) {
@@ -65,125 +65,112 @@ function Add({ show, onClose }) {
             setSubmitted(false);
         }
         else {
-            setErrors({});
-            setSubmitted(true);
-            console.log("Form submitted", values);
+            axios.post('https://dummyjson.com/recipes/add', values)
+                .then(response => {
+                    setErrors({});
+                    setSubmitted(true);
+                })
 
-        }
-    };
-
-    /*useEffect(() => {
-        axios.get('https://dummyjson.com/recipes/add', {
-            methode: "POST",
-            body: JSON.stringify({
-                name: '',
-                rating: '',
-                difficulty: '',
-            })
-    
-        })
-    });*/
-
-
+        };
+    }
 
     return (
-        <Modal
-            show={show}
-            centered
-            onHide={onClose}
-            data-bs-theme="dark"
-        >
-            <Modal.Header closeButton>
-                <Modal.Title>Ajouter une recette</Modal.Title>
-            </Modal.Header>
-            <Form onSubmit={handleSubmit} noValidate>
-                <Modal.Body >
+        <>
 
-                    <Form.Group
-                        controlId="formFileImage"
-                        className="mb-3"
-                    >
-                        <Form.Label>Image de la recette</Form.Label>
-                        <Form.Control
-                            type="file"
-                            accept='.png, .jpg, .jpeg'
-                            multiple
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Nom de la recette</Form.Label>
-                        <Form.Control
-                            name="name"
-                            type="text"
-                            value={values.name}
-                            onChange={handleChange}
-                            isInvalid={!!errors.name}
-                            placeholder="Nom de la recette"
-                            required
-                        />
-                        <Form.Control.Feedback type='invalid'>
-                            {errors.name}
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Difficulty</Form.Label>
-                        <Form.Select
-                            name="difficulty"
-                            onChange={handleChange}
-                            isInvalid={!!errors.difficulty}
-
+            <Modal
+                show={show}
+                centered
+                onHide={onClose}
+                data-bs-theme="dark"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Ajouter une recette</Modal.Title>
+                </Modal.Header>
+                <Form onSubmit={handleSubmit} noValidate>
+                    <Modal.Body >
+                        {submitted && (
+                            <Alert variant="success" onClose={() => setSubmitted(false)} dismissible>
+                                Recette ajoutée avec succès !
+                            </Alert>
+                        )}
+                        <Form.Group
+                            controlId="formFileImage"
+                            className="mb-3"
                         >
-                            <option value="">Select difficulty</option>
-                            <option value="Easy">Easy</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Hard">Hard</option>
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">
-                            {errors.difficulty}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group >
-                        <Form.Label className="mt-4">Note :
+                            <Form.Label>Image de la recette</Form.Label>
+                            <Form.Control
+                                type="file"
+                                accept='.png, .jpg, .jpeg'
+                                multiple
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Nom de la recette</Form.Label>
+                            <Form.Control
+                                name="name"
+                                type="text"
+                                value={values.name}
+                                onChange={handleChange}
+                                isInvalid={!!errors.name}
+                                placeholder="Nom de la recette"
+                                required
+                            />
+                            <Form.Control.Feedback type='invalid'>
+                                {errors.name}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Difficulty</Form.Label>
+                            <Form.Select
+                                name="difficulty"
+                                onChange={handleChange}
+                                isInvalid={!!errors.difficulty}
+                            >
+                                <option value="">Select difficulty</option>
+                                <option value="Easy">Easy</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Hard">Hard</option>
+                            </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.difficulty}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group >
+                            <Form.Label className="mt-4" >Note : </Form.Label>
+                            <div ref={zoneRating}>
+                                <EditStarRating
+                                    rating={values.rating}
+                                    setRating={(rate) => setValues(prev => ({ ...prev, rating: rate }))}
+                                    name="rating"
 
-                        </Form.Label>
 
-                        <EditStarRating
-                            rating={values.rating}
-                            setRating={(rate) => setValues(prev => ({ ...prev, rating: rate }))}
-                            name="rating"
+                                />
+                            </div>
+                            <Form.Control
 
-                        />
-                        <Form.Control
-                            type="hidden"
-                            isInvalid={!!errors.rating}
-                        />
-                        <Form.Control.Feedback /*ref={ratingFeedBack}*/ type="invalid">
-                            {errors.rating}
+                                type="hidden"
+                                isInvalid={!!errors.rating}
+                            />
+                            <Form.Control.Feedback /*ref={ratingFeedBack}*/ type="invalid" >
+                                {errors.rating}
 
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group className='text-center'>
-                        <Button type='submit' variant="primary" >
-                            Submit
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className='text-center mt-4'>
+                            <Button type='submit' variant="primary" >
+                                Verification
+                            </Button>
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={onClose}>
+                            Save and submit
                         </Button>
-                    </Form.Group>
-
-                </Modal.Body>
-
-                <Modal.Footer>
-
-                    <Button type='save' variant="primary" onClick={onClose}>
-                        Enregistrer
-                    </Button>
-
-                </Modal.Footer>
-            </Form >
-        </Modal >
-
+                    </Modal.Footer>
+                </Form >
+            </Modal >
+        </>
     );
-}
 
+}
 export default Add;
