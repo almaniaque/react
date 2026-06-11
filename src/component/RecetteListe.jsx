@@ -1,10 +1,7 @@
 import Recette from './Recette'
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Container, Col, Row, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import Add from './Add';
 
 

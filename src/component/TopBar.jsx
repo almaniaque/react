@@ -1,25 +1,34 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import { Container, Nav, Navbar, Offcanvas, Button, Form, Col, Row } from 'react-bootstrap';
+import { useState } from 'react';
+import LatMen from './LatMen'
 
+function TopBar({ name, ...props }) {
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-function TopBar() {
     return (
         <Navbar expand="lg" bg="dark" data-bs-theme="dark">
-            <Container fluid >
-                <Navbar.Brand href="#home"><i class="bi bi-house-door"></i></Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/">Acceuil</Nav.Link>
-                        <Nav.Link href="/Recette">Recette</Nav.Link>
-                        <Nav.Link href="/Contact">Contact</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
+            <Container fluid>
+                <Button variant="secondary" onClick={handleShow} >
+                    <Navbar.Brand href="#home">
+                        {name}
+                        <i className="bi bi-house-door ms-3 p-0 color-info "></i>
+                    </Navbar.Brand>
+                </Button>
+                <Nav className="me-auto">
+                    <Nav.Link href="/">Accueil</Nav.Link>
+                    <Nav.Link href="/Recette">Recette</Nav.Link>
+                    <Nav.Link href="/Contact">Contact</Nav.Link>
+                </Nav>
+                <LatMen
+                    show={show}
+                    handleClose={handleClose}
+                />
             </Container>
         </Navbar>
-    )
+    );
 }
 
-export default TopBar
+export default TopBar;

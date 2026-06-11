@@ -1,8 +1,6 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import { RiAlignItemBottomLine } from 'react-icons/ri';
 import Accordion from 'react-bootstrap/Accordion';
-import { CardText } from 'react-bootstrap';
+import { CardText, Card, Button } from 'react-bootstrap';
 import StarRating from './StarRating';
 
 function Recette({ recette }) {
