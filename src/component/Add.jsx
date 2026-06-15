@@ -11,9 +11,12 @@ function Add({ show, onClose }) {
     const [rating, setRating] = useState(0);
 
     const [values, setValues] = useState({
+        image: "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
         name: "",
         rating: 0,
         difficulty: "",
+        ingredients: [],
+        instructions: [],
     });
     const [errors, setErrors] = useState([])
 
@@ -65,10 +68,11 @@ function Add({ show, onClose }) {
             setSubmitted(false);
         }
         else {
-            axios.post('https://dummyjson.com/recipes/add', values)
+            axios.post('http://localhost:3000/recette/add', values)
                 .then(response => {
                     setErrors({});
                     setSubmitted(true);
+                    onClose();
                 })
 
         };
@@ -157,18 +161,19 @@ function Add({ show, onClose }) {
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className='text-center mt-4'>
-                            <Button type='submit' variant="primary" >
-                                Verification
+                            <Button type='submit' variant="primary" onClick={onClose}>
+                                Ajouter la recette
                             </Button>
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={onClose}>
-                            Save and submit
+                        <Button variant="danger" onClick={onClose}>
+                            Exit
                         </Button>
                     </Modal.Footer>
                 </Form >
             </Modal >
+
         </>
     );
 

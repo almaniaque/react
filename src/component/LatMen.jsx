@@ -18,7 +18,7 @@ function LatMen({ show, handleClose, ...props }) {
 
             <Offcanvas.Body>
                 <h6>Rechercher une recette</h6>
-                <Form inline>
+                <Form >
                     <Row>
                         <Col xs="auto">
                             <Form.Control
@@ -33,22 +33,7 @@ function LatMen({ show, handleClose, ...props }) {
                     </Row>
                 </Form>
                 <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
-                <Form.Check type="checkbox" />
+
             </Offcanvas.Body>
         </Offcanvas>
     )

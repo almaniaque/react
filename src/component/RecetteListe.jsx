@@ -9,15 +9,34 @@ function RecetteListe() {
     const [recipes, setRecettes] = useState([])
 
     const [show, setShow] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
     const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+
+
+        axios.get('http://localhost:3000/recette')
+            .then(response => setRecettes(response.data))
+            .catch(error => console.error("Erreur : ", error));
+    }
+
+    const handleDeleteShow = () => {
+        setShowDelete(true);
+    };
+
+    const handleDeleteClose = () => {
+        setShowDelete(false);
+
+        axios.get('http://localhost:3000/recette')
+            .then(response => setRecettes(response.data))
+            .catch(error => console.error("Erreur : ", error));
+    }
 
     useEffect(() => {
-        axios.get('https://dummyjson.com/recipes')
-            .then(response => setRecettes(response.data.recipes))
+        axios.get('http://localhost:3000/recette')
+            .then(response => setRecettes(response.data))
             .catch(error => console.error("Erreur : ", error))
     }, []);
-    console.log(recipes)
 
     return (
         <>
