@@ -2,9 +2,10 @@ import { Alert, Form, Button, FormControl, FormGroup, Modal } from 'react-bootst
 import EditStarRating from './EditStarRating';
 import { useEffect, useState, useRef } from "react";
 import axios from 'axios';
+import RecetteListe from './recetteListe';
 
 
-function Add({ show, onClose }) {
+function Add({ show, onClose, displayMessage, modalTitle, recipe }) {
 
     /*const ratinFeedBack = useRef(null)*/
     const zoneRating = useRef(null)
@@ -68,15 +69,36 @@ function Add({ show, onClose }) {
             setSubmitted(false);
         }
         else {
-            axios.post('http://localhost:3000/recette/add', values)
-                .then(response => {
-                    setErrors({});
-                    setSubmitted(true);
-                    onClose();
-                })
-
+            if (recipe === null) {
+                axios.post('http://localhost:3000/recette/add', values)
+                    .then(response => {
+                        displayMessage(response.data);
+                        setErrors({});
+                        setSubmitted(true);
+                        onClose();
+                    })
+            }
+            //envoie de la requete update vers le back
+            else {
+                axios.put(`http://localhost:3000/recette/update/${recipe._id}`, values)
+                    .then(response => {
+                        displayMessage(response.data);
+                        setErrors({});
+                        setSubmitted(true);
+                        onClose();
+                    })
+            }
         };
     }
+
+    useEffect(() => {
+        if (recipe !== null) {
+            setValues((prev) => ({ ...prev, [name]: recipe.name, ["rating"]: recipe.rating, ["difficulty"]: recipe.difficulty }
+            ))
+        }
+
+    }, [])
+
 
     return (
         <>
@@ -88,15 +110,11 @@ function Add({ show, onClose }) {
                 data-bs-theme="dark"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Ajouter une recette</Modal.Title>
+                    <Modal.Title>{modalTitle}</Modal.Title>
                 </Modal.Header>
                 <Form onSubmit={handleSubmit} noValidate>
                     <Modal.Body >
-                        {submitted && (
-                            <Alert variant="success" onClose={() => setSubmitted(false)} dismissible>
-                                Recette ajoutée avec succès !
-                            </Alert>
-                        )}
+
                         <Form.Group
                             controlId="formFileImage"
                             className="mb-3"
@@ -127,6 +145,7 @@ function Add({ show, onClose }) {
                             <Form.Label>Difficulty</Form.Label>
                             <Form.Select
                                 name="difficulty"
+                                value={values.difficulty}
                                 onChange={handleChange}
                                 isInvalid={!!errors.difficulty}
                             >

@@ -9,8 +9,11 @@ function TopBar({ name, ...props }) {
     const handleShow = () => setShow(true);
 
     return (
-        <Navbar expand="lg" bg="dark" data-bs-theme="dark">
-            <Container fluid>
+
+        <Navbar expand="lg" bg="dark" data-bs-theme="dark" sticky="top">
+
+            <Container fluid >
+
                 <Button variant="secondary" onClick={handleShow} >
                     <Navbar.Brand href="#home">
                         {name}
@@ -27,7 +30,10 @@ function TopBar({ name, ...props }) {
                     handleClose={handleClose}
                 />
             </Container>
-        </Navbar>
+
+        </Navbar >
+
+
     );
 }
 

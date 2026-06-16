@@ -4,7 +4,7 @@ import { CardText, Card, Button } from 'react-bootstrap';
 import StarRating from './StarRating';
 import Delete from './Delete'
 
-function Recette({ recette, handleDeleteShow, showDelete, handleDeleteClose }) {
+function Recette({ handleUpdateShow, handleDeleteShow, showDelete, handleDeleteClose, recipes, suppressName, suppressId, recette, handleDelete }) {
 
     return (
         <>
@@ -52,8 +52,8 @@ function Recette({ recette, handleDeleteShow, showDelete, handleDeleteClose }) {
                             <i className="bi bi-circle-fill" ></i>
                         </Card.Text>
                         <Card.Text >
-                            <Button variant="secondary" className='m-1' >Modifier</Button>
-                            <Button variant="danger" className='m-1' onClick={handleDeleteShow}>Supprimer</Button>
+                            <Button variant="secondary" className='m-1' onClick={(e) => { handleUpdateShow(e, recette) }}>Modifier</Button>
+                            <Button variant="danger" className='m-1' onClick={(e) => handleDeleteShow(e, recette._id, recette.name)}>Supprimer</Button>
                         </Card.Text>
                     </Card.Footer>
                 </Card.Body>
@@ -61,6 +61,10 @@ function Recette({ recette, handleDeleteShow, showDelete, handleDeleteClose }) {
             <Delete
                 showDelete={showDelete}
                 onClose={handleDeleteClose}
+                suppressName={suppressName}
+                suppressId={suppressId}
+                recette={recipes}
+                handleDelete={handleDelete}
             />
         </>
     );

@@ -1,6 +1,12 @@
 import { Button, Modal } from 'react-bootstrap';
+import axios from 'axios';
 
-function Delete({ showDelete, onClose }) {
+
+function Delete({ handleDelete, showDelete, onClose, values, suppressName, suppressId, handleDeleteClose }) {
+
+
+
+
     return (
         <Modal
             show={showDelete}
@@ -13,17 +19,20 @@ function Delete({ showDelete, onClose }) {
             </Modal.Header>
 
             <Modal.Body>
-                Es-tu sûr de vouloir supprimer cette recette ?
+                Es-tu sûr de vouloir supprimer la recette {suppressName}?
             </Modal.Body>
 
             <Modal.Footer>
+
+                <Button variant="danger" onClick={handleDelete}>
+                    Supprimer
+                </Button>
+
                 <Button variant="secondary" onClick={onClose}>
                     Annuler
                 </Button>
 
-                <Button variant="danger" onClick={onClose}>
-                    Supprimer
-                </Button>
+
             </Modal.Footer>
         </Modal>
     );
