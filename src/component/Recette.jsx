@@ -6,9 +6,6 @@ import Delete from './Delete'
 
 function Recette({ recette, handleDeleteShow, showDelete, handleDeleteClose }) {
 
-
-
-
     return (
         <>
             <Card bg='dark' text='info' className='mt-2 mb-4 border border-info' >
@@ -22,25 +19,26 @@ function Recette({ recette, handleDeleteShow, showDelete, handleDeleteClose }) {
                         <Accordion.Item eventKey="1">
                             <Accordion.Header><Card.Title>Ingredients</Card.Title></Accordion.Header>
                             <Accordion.Body>
-                                {recette.ingredients.map(ingredients => (
-                                    <ul>
-                                        <li >
+                                <ul >
+                                    {recette.ingredients.map((ingredients, index) => (
+                                        <li key={index}>
                                             {ingredients}
                                         </li>
-                                    </ul>
-                                ))}
+                                    ))}
+                                </ul>
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="2">
                             <Accordion.Header><Card.Title>Instructions</Card.Title></Accordion.Header>
                             <Accordion.Body>
-                                {recette.instructions.map(instructions => (
-                                    <ul>
-                                        <li >
+                                <ul>
+                                    {recette.instructions.map((instructions, index) => (
+
+                                        < li key={index}>
                                             {instructions}
                                         </li>
-                                    </ul>
-                                ))}
+                                    ))}
+                                </ul>
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>

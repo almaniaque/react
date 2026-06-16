@@ -46,7 +46,11 @@ function RecetteListe() {
                 <Row>
                     {recipes.map(recipe => (
                         <Col key={recipes.id} md={4}>
-                            <Recette recette={recipe} />
+                            <Recette
+                                recette={recipe}
+                                handleDeleteShow={handleDeleteShow}
+                                showDelete={showDelete}
+                                handleDeleteClose={handleDeleteClose} />
                         </Col>
                     ))}
                 </Row>

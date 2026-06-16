@@ -161,7 +161,7 @@ function Add({ show, onClose }) {
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className='text-center mt-4'>
-                            <Button type='submit' variant="primary" onClick={onClose}>
+                            <Button type='submit' variant="primary" >
                                 Ajouter la recette
                             </Button>
                         </Form.Group>

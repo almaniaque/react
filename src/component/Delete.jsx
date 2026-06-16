@@ -21,7 +21,7 @@ function Delete({ showDelete, onClose }) {
                     Annuler
                 </Button>
 
-                <Button variant="danger">
+                <Button variant="danger" onClick={onClose}>
                     Supprimer
                 </Button>
             </Modal.Footer>
