@@ -48,7 +48,7 @@ function RecetteListe() {
         setShowDelete(false);
     }
 
-    const handleUpdateShow = () => setShow(true);
+    const handleUpdateShow = (e, recipe) => handleShow(e, recipe);
     const handleDelete = () => {
 
         axios.delete(`http://localhost:3000/recette/delete/${suppressId}`)
@@ -84,7 +84,7 @@ function RecetteListe() {
                 <Row className='mt-4'>
 
                     {recipes.map(recipe => (
-                        <Col key={recipes.id} md={4}>
+                        <Col key={recipes._id} md={4}>
                             <Recette
                                 recette={recipe}
                                 handleDeleteShow={handleDeleteShow}
@@ -104,7 +104,7 @@ function RecetteListe() {
                 show={show}
                 onClose={handleClose}
                 displayMessage={setMessage}
-                modalTitle={setModalTitle}
+                modalTitle={modalTitle}
                 recipe={selectRecette}
             />
         </>

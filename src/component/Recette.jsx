@@ -1,4 +1,3 @@
-import { RiAlignItemBottomLine } from 'react-icons/ri';
 import Accordion from 'react-bootstrap/Accordion';
 import { CardText, Card, Button } from 'react-bootstrap';
 import StarRating from './StarRating';

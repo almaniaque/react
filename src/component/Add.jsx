@@ -92,12 +92,25 @@ function Add({ show, onClose, displayMessage, modalTitle, recipe }) {
     }
 
     useEffect(() => {
-        if (recipe !== null) {
-            setValues((prev) => ({ ...prev, [name]: recipe.name, ["rating"]: recipe.rating, ["difficulty"]: recipe.difficulty }
-            ))
-        }
+        if (show && recipe !== null) {
+            setValues(prev => ({
+                ...prev,
+                name: recipe.name,
+                rating: recipe.rating,
+                difficulty: recipe.difficulty,
+            }));
+        } else if (show && recipe === null) {
 
-    }, [])
+            setValues({
+                image: "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
+                name: "",
+                rating: 0,
+                difficulty: "",
+                ingredients: [],
+                instructions: [],
+            });
+        }
+    }, [show, recipe]);
 
 
     return (
@@ -181,7 +194,7 @@ function Add({ show, onClose, displayMessage, modalTitle, recipe }) {
                         </Form.Group>
                         <Form.Group className='text-center mt-4'>
                             <Button type='submit' variant="primary" >
-                                Ajouter la recette
+                                {recipe === null ? "Ajouter la recette" : "Modifier la recette"}
                             </Button>
                         </Form.Group>
                     </Modal.Body>
